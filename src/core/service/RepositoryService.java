@@ -3,6 +3,7 @@ package core.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import core.comm.RepositoryUtils;
 import core.model.Datum;
 
 public class RepositoryService {
@@ -50,10 +51,9 @@ public class RepositoryService {
 			return null;
 		}
 		
-		Map<String, Map<String, Datum>> repository = repositories.get(repositoryKey);
+		Map<String, Map<String, Datum>> repository = getRepository(repositoryKey);
 		if(repository == null) {
-			repository = new HashMap<>();
-			repositories.put(repositoryKey, repository);
+			return null;
 		}
 		
 		Map<String, Datum> data = repository.get(dataKey);
@@ -63,5 +63,51 @@ public class RepositoryService {
 		}
 		
 		return data;
+	}
+	
+	/**
+	 * 해당 저장소, 데이터에 uri 저장 후 keys 반환
+	 * @param repositoryKey
+	 * @param dataKey
+	 * @param uri
+	 * @return
+	 */
+	public Map<String, Integer> saveUri(String repositoryKey, String dataKey, String uri) {
+		if(repositoryKey == null || dataKey == null) {
+			return null;
+		}
+		
+		Map<String, Datum> data = getData(repositoryKey, dataKey);
+		if(data == null) {
+			return null;
+		}
+		
+		Map<String, Integer> keys = new HashMap<>();
+		RepositoryUtils.addURI(data, keys, uri);
+		
+		return keys;
+	}
+	
+	/**
+	 * 해당 저장소, 데이터에 uri 저장 후 keys 반환
+	 * @param repositoryKey
+	 * @param dataKey
+	 * @param uri
+	 * @return
+	 */
+	public Map<String, Integer> saveParameterString(String repositoryKey, String dataKey, String parameterString) {
+		if(repositoryKey == null || dataKey == null) {
+			return null;
+		}
+		
+		Map<String, Datum> data = getData(repositoryKey, dataKey);
+		if(data == null) {
+			return null;
+		}
+		
+		Map<String, Integer> keys = new HashMap<>();
+		RepositoryUtils.addParameterString(data, keys, parameterString);
+		
+		return keys;
 	}
 }
