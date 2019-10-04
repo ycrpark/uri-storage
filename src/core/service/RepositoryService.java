@@ -89,7 +89,7 @@ public class RepositoryService {
 	}
 	
 	/**
-	 * 해당 저장소, 데이터에 uri 저장 후 keys 반환
+	 * 해당 저장소, 데이터에 파라미터 key, value 저장 후 keys 반환
 	 * @param repositoryKey
 	 * @param dataKey
 	 * @param uri
@@ -109,5 +109,47 @@ public class RepositoryService {
 		RepositoryUtils.addParameterString(data, keys, parameterString);
 		
 		return keys;
+	}
+	
+	/**
+	 * 해당 저장소, 데이터, 데이텀에 value 저장 후 keys 반환
+	 * @param repositoryKey
+	 * @param dataKey
+	 * @param keys
+	 * @param datumKey
+	 * @param value
+	 * @return
+	 */
+	public Map<String, Integer> saveValue(String repositoryKey, String dataKey, Map<String, Integer> keys, String datumKey, String value) {
+		if(repositoryKey == null || dataKey == null) {
+			return null;
+		}
+		
+		Map<String, Datum> data = getData(repositoryKey, dataKey);
+		if(data == null) {
+			return null;
+		}
+		
+		if(keys == null) {
+			keys = new HashMap<>();
+		}
+		RepositoryUtils.addValue(data, keys, datumKey, value);
+		
+		return keys;
+	}
+	
+	// TODO
+	public String getUri() {
+		return null;
+	}
+	
+	// TODO
+	public String getParameterString() {
+		return null;
+	}
+	
+	// TODO
+	public String getValue() {
+		return null;
 	}
 }

@@ -30,6 +30,13 @@ public class SampleTest {
 		RepositoryUtils.addURI(popupData, popupKeys, uri2);
 		RepositoryUtils.addParameterString(callData, callKeys, param1);
 		
+		
+		System.out.println(landingKeys);
+		System.out.println(popupKeys);
+		System.out.println(callKeys);
+		System.out.println(repositoryService.getRepository(SampleConstants.REPOSITORY_KEY.REP1));
+		
+		
 		System.out.println("--------------------------------------------------");
 		
 		repositoryService.saveUri(SampleConstants.REPOSITORY_KEY.REP1, SampleConstants.DATA_KEY.LANDING_URI, uri1);
@@ -37,19 +44,45 @@ public class SampleTest {
 		repositoryService.saveParameterString(SampleConstants.REPOSITORY_KEY.REP1, SampleConstants.DATA_KEY.CALL_URI, param1);
 		
 		
+		System.out.println(landingKeys);
+		System.out.println(popupKeys);
+		System.out.println(callKeys);
+		System.out.println(repositoryService.getRepository(SampleConstants.REPOSITORY_KEY.REP1));
 		
 		System.out.println("--------------------------------------------------");
 		
 		
 		repositoryService.saveUri(SampleConstants.REPOSITORY_KEY.REP1, SampleConstants.DATA_KEY.CALL_URI, param1);
 		
+		System.out.println(landingKeys);
+		System.out.println(popupKeys);
+		System.out.println(callKeys);
+		System.out.println(repositoryService.getRepository(SampleConstants.REPOSITORY_KEY.REP1));
+		
+		System.out.println("--------------------------------------------------");
+		
+		String value1 = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAaaaaaaaaaaaaaAAAAAAAAAAAAAAA";
+		String value2 = "BBBBbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
+		String value3 = "CCCCCCCCCCCCCCCCCCccccccccccccccccccccccccccccccc";
+		
+		
+		Map<String, Map<String, Datum>> reps = repositoryService.getRepository(SampleConstants.REPOSITORY_KEY.REP1);
+		Map<String, Datum> commonData = new HashMap<>();
+		reps.put(SampleConstants.DATA_KEY.COMMON, commonData);
+		
+		Map<String, Datum> commonData2 = repositoryService.getData(SampleConstants.REPOSITORY_KEY.REP1, SampleConstants.DATA_KEY.COMMON);
+		System.out.println(commonData == commonData2);
+		
 		
 		System.out.println("--------------------------------------------------");
 		
 		
+		Map<String, Integer> commonKeys = repositoryService.saveValue(SampleConstants.REPOSITORY_KEY.REP1, SampleConstants.DATA_KEY.COMMON, null, "A", value1);
+		repositoryService.saveValue(SampleConstants.REPOSITORY_KEY.REP1, SampleConstants.DATA_KEY.COMMON, commonKeys, "B", value2);
+		repositoryService.saveValue(SampleConstants.REPOSITORY_KEY.REP1, SampleConstants.DATA_KEY.COMMON, commonKeys, "C", value3);
 		
-		
-		
+		System.out.println(commonKeys);
+		System.out.println(repositoryService.getRepository(SampleConstants.REPOSITORY_KEY.REP1));
 	}
 	
 }
