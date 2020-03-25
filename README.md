@@ -1,2 +1,2 @@
-# uri-storage
-uri, parameter string, value 압축 저장 서비스
+# uri storage
+uri, parameter, value 등 데이터 압축 저장
